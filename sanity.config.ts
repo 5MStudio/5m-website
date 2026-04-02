@@ -1,20 +1,22 @@
-
+// sanity.config.ts
 import { defineConfig } from 'sanity'
-import { structureTool } from 'sanity/structure'
-import { visionTool } from '@sanity/vision'
+import { structureTool } from 'sanity/structure' // <- add this
+import { muxInput } from 'sanity-plugin-mux-input'
 import { schemaTypes } from './schemaTypes'
 
 export default defineConfig({
-  name: 'pdefault',
-  title: '5M Website',
+  name: 'default',
+  title: '5M Studio',
 
-  projectId: 'p8hrggg4', // <-- replace with your actual projectId
+  projectId: 'p8hrggg4',
   dataset: 'production',
 
-  // Add this line to set your Sanity Studio subdomain
-  hostname: '5m-studio', // <-- this will make your URL https://5m-studio.sanity.studio
-
-  plugins: [structureTool(), visionTool()],
+  plugins: [
+    structureTool(), // <- add this
+    muxInput({
+      // optional settings here
+    }),
+  ],
 
   schema: {
     types: schemaTypes,

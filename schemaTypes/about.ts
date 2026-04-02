@@ -35,8 +35,8 @@ export default defineType({
       name: 'contact',
       title: 'Contact',
       type: 'array',
-      of: [{ type: 'block' }],
-      description: 'Contact information, could include email, phone, or address',
+      of: [{ type: 'string' }],
+      description: 'Contact information: email, phone, or address',
     }),
     defineField({
       name: 'platforms',
