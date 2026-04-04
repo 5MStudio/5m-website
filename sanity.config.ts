@@ -1,6 +1,7 @@
 // sanity.config.ts
 import { defineConfig } from 'sanity'
-import { structureTool } from 'sanity/structure' // <- add this
+import { structureTool } from 'sanity/structure'
+import { visionTool } from '@sanity/vision' // ← add this
 import { muxInput } from 'sanity-plugin-mux-input'
 import { schemaTypes } from './schemaTypes'
 
@@ -12,13 +13,16 @@ export default defineConfig({
   dataset: 'production',
 
   plugins: [
-    structureTool(), // <- add this
+    structureTool(),
     muxInput({
       // optional settings here
     }),
+    visionTool(), // ← add this
   ],
 
   schema: {
     types: schemaTypes,
   },
 })
+
+

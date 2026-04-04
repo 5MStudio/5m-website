@@ -1,4 +1,3 @@
-// schemaTypes/project.ts
 import { defineType, defineField } from 'sanity'
 
 export default defineType({
@@ -15,37 +14,43 @@ export default defineType({
       title: 'Services',
       type: 'array',
       of: [
-        defineField({ type: 'string', name: 'service', options: { list: [
-          { title: 'Architecture', value: 'Architecture' },
-          { title: 'Interiors', value: 'Interiors' },
-          { title: 'Product Design', value: 'Product Design' },
-          { title: 'Spatial Design', value: 'Spatial Design' },
-          { title: 'Brand Identity', value: 'Brand Identity' },
-          { title: 'Creative Direction', value: 'Creative Direction' },
-          { title: 'Image Creation', value: 'Image Creation' },
-          { title: 'Motion', value: 'Motion' },
-        ] } }),
+        defineField({
+          type: 'string',
+          name: 'service',
+          options: {
+            list: [
+              { title: 'Architecture', value: 'Architecture' },
+              { title: 'Interiors', value: 'Interiors' },
+              { title: 'Product Design', value: 'Product Design' },
+              { title: 'Spatial Design', value: 'Spatial Design' },
+              { title: 'Brand Identity', value: 'Brand Identity' },
+              { title: 'Creative Direction', value: 'Creative Direction' },
+              { title: 'Image Creation', value: 'Image Creation' },
+              { title: 'Motion', value: 'Motion' },
+            ],
+          },
+        }),
       ],
     }),
 
     // ───────────────────
-    // Thumbnail (unified object)
+    // Thumbnail
     // ───────────────────
     defineField({
       name: 'thumbnail',
       title: 'Thumbnail',
-      type: 'object',
+      type: 'image', // ✅ unified image type
+      options: { hotspot: true },
       fields: [
-        defineField({ name: 'asset', title: 'Thumbnail Image', type: 'image', options: { hotspot: true } }),
-        defineField({ name: 'ratio', title: 'Thumbnail Ratio', type: 'string', options: { list: [
-          { title: 'Landscape 16:9', value: 'landscape' },
-          { title: 'Portrait 4:5', value: 'portrait' },
-        ], layout: 'radio' }, validation: (Rule) => Rule.required() }),
+        defineField({ name: 'ratio', title: 'Thumbnail Ratio', type: 'string', options: {
+          list: [
+            { title: 'Landscape 16:9', value: 'landscape' },
+            { title: 'Portrait 4:5', value: 'portrait' },
+          ], layout: 'radio',
+        }, validation: (Rule) => Rule.required() }),
         defineField({ name: 'video', title: 'Thumbnail Video', type: 'mux.video' }),
       ],
     }),
-
-    defineField({ name: 'selected', title: 'Selected for Homepage', type: 'boolean', initialValue: false }),
 
     // ───────────────────
     // Hero
@@ -87,7 +92,7 @@ export default defineType({
               type: 'array',
               of: [
                 defineField({
-                  type: 'image',
+                  type: 'image', // ✅ unified
                   name: 'image',
                   options: { hotspot: true },
                   fields: [
@@ -116,11 +121,13 @@ export default defineType({
           fields: [
             defineField({ name: 'image', title: 'Image', type: 'image', options: { hotspot: true } }),
             defineField({ name: 'title', title: 'Image Title', type: 'string' }),
-            defineField({ name: 'alignment', title: 'Alignment', type: 'string', options: { list: [
-              { title: 'Left', value: 'left' },
-              { title: 'Center', value: 'center' },
-              { title: 'Right', value: 'right' },
-            ] }, initialValue: 'left' }),
+            defineField({ name: 'alignment', title: 'Alignment', type: 'string', options: {
+              list: [
+                { title: 'Left', value: 'left' },
+                { title: 'Center', value: 'center' },
+                { title: 'Right', value: 'right' },
+              ]
+            }, initialValue: 'left' }),
             defineField({ name: 'video', title: 'Single Image Video', type: 'mux.video' }),
           ],
         }),
