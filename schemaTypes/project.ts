@@ -39,7 +39,7 @@ export default defineType({
     defineField({
       name: 'thumbnail',
       title: 'Thumbnail',
-      type: 'image', // ✅ unified image type
+      type: 'image',
       options: { hotspot: true },
       fields: [
         defineField({ name: 'ratio', title: 'Thumbnail Ratio', type: 'string', options: {
@@ -92,7 +92,7 @@ export default defineType({
               type: 'array',
               of: [
                 defineField({
-                  type: 'image', // ✅ unified
+                  type: 'image',
                   name: 'image',
                   options: { hotspot: true },
                   fields: [
@@ -110,7 +110,44 @@ export default defineType({
                 { title: 'Full width', value: 'full' },
                 { title: 'Two side by side', value: 'two' },
                 { title: 'Grid (up to 4)', value: 'grid' },
+                { title: 'Single (50% width)', value: 'single' },
+                { title: 'Image + Text', value: 'imageText' },
               ] },
+            }),
+            defineField({
+              name: 'alignment',
+              title: 'Image Alignment',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Left', value: 'left' },
+                  { title: 'Center', value: 'center' },
+                  { title: 'Right', value: 'right' },
+                ],
+              },
+              initialValue: 'left',
+              hidden: ({ parent }) => parent?.layout !== 'single',
+            }),
+            defineField({
+              name: 'imagePosition',
+              title: 'Image Position',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Image Left', value: 'left' },
+                  { title: 'Image Right', value: 'right' },
+                ],
+                layout: 'radio',
+              },
+              initialValue: 'left',
+              hidden: ({ parent }) => parent?.layout !== 'imageText',
+            }),
+            defineField({
+              name: 'text',
+              title: 'Text',
+              type: 'array',
+              of: [{ type: 'block' }],
+              hidden: ({ parent }) => parent?.layout !== 'imageText',
             }),
           ],
         }),

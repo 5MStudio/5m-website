@@ -35,15 +35,35 @@ export default defineType({
       name: 'contact',
       title: 'Contact',
       type: 'array',
-      of: [{ type: 'string' }],
-      description: 'Contact information: email, phone, or address',
+      of: [
+        defineField({
+          type: 'object',
+          name: 'contactItem',
+          fields: [
+            defineField({ name: 'label', title: 'Label', type: 'string', description: 'Display text, e.g. hello@studio.com' }),
+            defineField({ name: 'email', title: 'Email Address', type: 'string', description: 'e.g. hello@studio.com' }),
+          ],
+          preview: { select: { title: 'label' } },
+        }),
+      ],
+      description: 'Contact email addresses',
     }),
     defineField({
       name: 'platforms',
       title: 'Platforms',
       type: 'array',
-      of: [{ type: 'string' }],
-      description: 'Links or handles for social platforms',
+      of: [
+        defineField({
+          type: 'object',
+          name: 'platformItem',
+          fields: [
+            defineField({ name: 'label', title: 'Label', type: 'string', description: 'Display text, e.g. Instagram' }),
+            defineField({ name: 'url', title: 'URL', type: 'url', description: 'e.g. https://instagram.com/studio' }),
+          ],
+          preview: { select: { title: 'label' } },
+        }),
+      ],
+      description: 'Social platforms with links',
     }),
   ],
 })
