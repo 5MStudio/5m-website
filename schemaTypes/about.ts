@@ -1,4 +1,3 @@
-// schemaTypes/about.ts
 import { defineType, defineField } from 'sanity'
 
 export default defineType({
@@ -17,7 +16,7 @@ export default defineType({
       name: 'services',
       title: 'Services',
       type: 'array',
-      of: [{ type: 'string' }],
+      of: [{ type: 'reference', to: [{ type: 'service' }] }],
     }),
     defineField({
       name: 'clients',

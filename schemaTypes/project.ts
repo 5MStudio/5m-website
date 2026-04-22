@@ -13,24 +13,7 @@ export default defineType({
       name: 'services',
       title: 'Services',
       type: 'array',
-      of: [
-        defineField({
-          type: 'string',
-          name: 'service',
-          options: {
-            list: [
-              { title: 'Architecture', value: 'Architecture' },
-              { title: 'Interiors', value: 'Interiors' },
-              { title: 'Product Design', value: 'Product Design' },
-              { title: 'Spatial Design', value: 'Spatial Design' },
-              { title: 'Brand Identity', value: 'Brand Identity' },
-              { title: 'Creative Direction', value: 'Creative Direction' },
-              { title: 'Image Creation', value: 'Image Creation' },
-              { title: 'Motion', value: 'Motion' },
-            ],
-          },
-        }),
-      ],
+      of: [{ type: 'reference', to: [{ type: 'service' }] }],
     }),
 
     // ───────────────────
@@ -149,33 +132,6 @@ export default defineType({
               of: [{ type: 'block' }],
               hidden: ({ parent }) => parent?.layout !== 'imageText',
             }),
-          ],
-        }),
-        defineField({
-          type: 'object',
-          name: 'singleImageBlock',
-          title: 'Single Image (50% width)',
-          fields: [
-            defineField({ name: 'image', title: 'Image', type: 'image', options: { hotspot: true } }),
-            defineField({ name: 'title', title: 'Image Title', type: 'string' }),
-            defineField({ name: 'alignment', title: 'Alignment', type: 'string', options: {
-              list: [
-                { title: 'Left', value: 'left' },
-                { title: 'Center', value: 'center' },
-                { title: 'Right', value: 'right' },
-              ]
-            }, initialValue: 'left' }),
-            defineField({ name: 'video', title: 'Single Image Video', type: 'mux.video' }),
-          ],
-        }),
-        defineField({
-          type: 'object',
-          name: 'fullImageBlock',
-          title: 'Fullscreen Image (100% width)',
-          fields: [
-            defineField({ name: 'image', title: 'Image', type: 'image', options: { hotspot: true } }),
-            defineField({ name: 'title', title: 'Image Title', type: 'string' }),
-            defineField({ name: 'video', title: 'Fullscreen Video', type: 'mux.video' }),
           ],
         }),
       ],
